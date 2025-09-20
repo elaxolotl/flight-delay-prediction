@@ -12,3 +12,7 @@
 __pycache__/
 *.pyc
 *.pyo
+
+.catboost_info
+
+venv
