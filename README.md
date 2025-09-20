@@ -24,9 +24,9 @@ To stabilize variance, delays are log-transformed using ``np.log1p(delay_minutes
 + Handle missing values
 
 + Generate time-based features: dep_hour, arr_hour, day_of_week, day_of_year, flight_duration_min
-+ + Encode categorical features:
-+ + For XGBoost: TargetEncoder + OrdinalEncoder
-+ + For CatBoost: native categorical support (cast to str)
+  + Encode categorical features:
+  + For XGBoost: TargetEncoder + OrdinalEncoder
+  + For CatBoost: native categorical support (cast to str)
 + sample weighting to emphasize middle ranges (40–140 minutes)
 
 ## Models
@@ -35,33 +35,33 @@ I experimented with multiple approaches:
 
 + Baseline Models
 
-+ + Linear Regression / SGDRegressor — fast, but poor fit due to non-linear relationships.
+  + Linear Regression / SGDRegressor — fast, but poor fit due to non-linear relationships.
 
 + Gradient Boosting
 
-+ + XGBoost (XGBRegressor)
+  + XGBoost (XGBRegressor)
 
-+ + + Strong performance with feature engineering
+    + Strong performance with feature engineering
 
-+ + + Sensitive to hyperparameters → tuned with RandomizedSearchCV
+    + Sensitive to hyperparameters → tuned with RandomizedSearchCV
 
-+ + + Handles imbalanced target via sample weights
+    + Handles imbalanced target via sample weights
 
-+ + CatBoost (CatBoostRegressor)
+  + CatBoost (CatBoostRegressor)
 
-+ + + Handles high-cardinality categoricals (trajectory, FLTID) natively
+    + Handles high-cardinality categoricals (trajectory, FLTID) natively
 
-+ + + Robust to skewed data
+    + Robust to skewed data
 
-+ + + Supports quantile regression for uncertainty intervals
+    + Supports quantile regression for uncertainty intervals
 
 ## Evaluation
 
 + Main metrics:
 
-+ + RMSE (minutes)
+  + RMSE (minutes)
 
-+ + MAE (minutes)
+  + MAE (minutes)
 
 Both computed after inverting log transformation (``np.expm1``).
 
